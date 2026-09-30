@@ -1,7 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
 <meta charset="UTF-8">
+<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#1a1214">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Glasify — Coming Soon</title>
 <meta name="description" content="Glasify — AI skin analysis and personalized K-Beauty routines. Coming soon to iPhone.">
@@ -149,8 +151,19 @@
         location.href = APP_STORE_URL;
       });
     } else {
-      action.innerHTML = '<div class="soon">Coming soon to iPhone</div>' +
-        '<p class="hint">Save this code — you can enter it in the app when Glasify launches.</p>';
+      // Before launch: copying still works, so the whole flow can be tested
+      // with a TestFlight build (copy here, then open the app fresh).
+      action.innerHTML = '<button class="get" id="copyCode">Copy invite code</button>' +
+        '<p class="hint">Glasify is coming soon to iPhone. Copy the code — the app picks it up automatically on first launch, or you can enter it on the subscription screen.</p>';
+      const btn = document.getElementById("copyCode");
+      btn.addEventListener("click", async () => {
+        try {
+          await navigator.clipboard.writeText(code);
+          btn.textContent = "Copied ✓";
+        } catch (e) {
+          btn.textContent = "Copy failed — note the code above";
+        }
+      });
     }
   }
 </script>
