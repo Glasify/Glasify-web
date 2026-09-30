@@ -70,6 +70,12 @@
   input { flex: 1; min-width: 200px; padding: 14px 16px; border-radius: 12px; border: 1px solid var(--border); background: var(--card-bg); color: var(--text); font-size: 15px; font-family: inherit; }
   button { border: none; cursor: pointer; background: var(--accent); color: #fff; font-weight: 600; font-size: 15px; font-family: inherit; padding: 14px 22px; border-radius: 12px; }
   #waitlistMessage { margin-top: 14px; font-size: 14px; color: var(--accent); min-height: 20px; }
+  .invite { display: none; }
+  .code { display: inline-block; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 22px; font-weight: 600; letter-spacing: 0.04em; border: 2px dashed var(--accent); border-radius: 14px; padding: 14px 22px; margin: 4px 0 20px; background: var(--card-bg); }
+  .get { display: inline-block; text-decoration: none; background: var(--accent); color: #fff; font-weight: 600; font-size: 16px; padding: 15px 26px; border-radius: 14px; border: none; cursor: pointer; font-family: inherit; }
+  .hint { color: var(--text-secondary); font-size: 14px; margin-top: 14px; }
+  body.is-invite .default { display: none; }
+  body.is-invite .invite { display: block; }
   footer { border-top: 1px solid var(--border); padding: 28px 0 40px; font-size: 13px; color: var(--text-secondary); text-align: center; }
   footer .links { display: flex; gap: 20px; justify-content: center; margin-bottom: 12px; }
   footer p { margin: 6px auto; max-width: 620px; line-height: 1.5; }
@@ -82,7 +88,14 @@
 </div>
 
 <main>
-  <div class="wrap hero">
+  <div class="wrap hero invite">
+    <span class="eyebrow">💌 You've been invited</span>
+    <h1>A friend invited you to Glasify</h1>
+    <p class="sub">AI skin analysis and a K-Beauty routine built just for you. Here's your invite code:</p>
+    <div class="code" id="inviteCode"></div>
+    <div id="inviteAction"></div>
+  </div>
+  <div class="wrap hero default">
     <span class="eyebrow">✨ Coming soon</span>
     <h1>Know your skin.<br>Glow with a plan.</h1>
     <p class="sub">Snap a photo, get your SkinScore and estimated skin age in seconds, and follow a K-Beauty routine built just for you.</p>
@@ -109,6 +122,38 @@
     <p>© 2026 Planting Software. Glasify is not affiliated with or endorsed by Apple Inc.</p>
   </div>
 </footer>
+
+<script>
+  // Referral links: glasify.app/r/GLOW-XXXXXXXX (GitHub Pages serves this
+  // 404 page for every unknown path). Tapping "Get Glasify" copies the code,
+  // and the app picks it up from the clipboard on first launch
+  // (ReferralManager.checkClipboardForReferralCodeIfNeeded), so the invite
+  // counts without typing anything.
+  //
+  // LAUNCH: set APP_STORE_URL to the live App Store link.
+  const APP_STORE_URL = null; // e.g. "https://apps.apple.com/app/id6806978624"
+
+  const match = location.pathname.match(/^\/r\/(GLOW-[A-F0-9]{8})\/?$/i);
+  if (match) {
+    const code = match[1].toUpperCase();
+    document.body.classList.add("is-invite");
+    document.title = "You're invited to Glasify";
+    document.getElementById("inviteCode").textContent = code;
+    const action = document.getElementById("inviteAction");
+
+    if (APP_STORE_URL) {
+      action.innerHTML = '<button class="get" id="getApp">Get Glasify for iPhone</button>' +
+        '<p class="hint">We copy your invite code so the app can pick it up automatically.</p>';
+      document.getElementById("getApp").addEventListener("click", async () => {
+        try { await navigator.clipboard.writeText(code); } catch (e) { /* code is shown above as a fallback */ }
+        location.href = APP_STORE_URL;
+      });
+    } else {
+      action.innerHTML = '<div class="soon">Coming soon to iPhone</div>' +
+        '<p class="hint">Save this code — you can enter it in the app when Glasify launches.</p>';
+    }
+  }
+</script>
 
 <script>
   document.getElementById('waitlistForm').addEventListener('submit', async function (e) {
