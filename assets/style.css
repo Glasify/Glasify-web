@@ -73,3 +73,4 @@
 form .platforms { flex: 0 0 100%; justify-content: center; }
 input[type=email] { flex: 1 1 220px; min-width: 180px; width: auto; }
 @media(max-width:480px) { input[type=email], form button { flex-basis:100%; width:100%; } .languages {gap:12px;} }
+.platforms input[type=radio] { min-width:0; width:1px; height:1px; padding:0; border:0; }
