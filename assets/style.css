@@ -1,0 +1,75 @@
+
+  :root {
+    --bg: #fffaf9;
+    --bg-alt: #fff1f0;
+    --text: #24181a;
+    --text-secondary: #6b5658;
+    --accent: #d6336c;
+    --accent-soft: #ffe1ea;
+    --card-bg: #ffffff;
+    --border: #f3d9dd;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #1a1214;
+      --bg-alt: #241819;
+      --text: #f5ebec;
+      --text-secondary: #c9b3b6;
+      --accent: #ff6f9c;
+      --accent-soft: #3a2027;
+      --card-bg: #241819;
+      --border: #3a2427;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #1a1214;
+    --bg-alt: #241819;
+    --text: #f5ebec;
+    --text-secondary: #c9b3b6;
+    --accent: #ff6f9c;
+    --accent-soft: #3a2027;
+    --card-bg: #241819;
+    --border: #3a2427;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3 { font-family: 'Fraunces', Georgia, serif; margin: 0; }
+  a { color: inherit; }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+
+  nav.top { padding: 24px 0; }
+  .logo { font-family: 'Fraunces', Georgia, serif; font-size: 24px; font-weight: 600; }
+  .logo span { color: var(--accent); }
+  main { min-height: calc(100vh - 260px); display: flex; align-items: center; padding: 40px 0 64px; }
+  .hero { text-align: center; max-width: 640px; margin: 0 auto; }
+  .eyebrow { display: inline-block; background: var(--accent-soft); color: var(--accent); font-weight: 600; font-size: 14px; padding: 6px 14px; border-radius: 999px; margin-bottom: 22px; }
+  h1 { font-size: clamp(36px, 8vw, 60px); line-height: 1.08; letter-spacing: -0.01em; margin-bottom: 18px; }
+  .sub { color: var(--text-secondary); font-size: 18px; line-height: 1.55; margin: 0 auto 32px; }
+  .soon { display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--border); background: var(--card-bg); border-radius: 14px; padding: 12px 20px; font-weight: 600; }
+  .waitlist { margin-top: 44px; padding-top: 32px; border-top: 1px solid var(--border); }
+  .waitlist p { color: var(--text-secondary); margin: 0 0 16px; }
+  form { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; max-width: 420px; margin: 0 auto; }
+  input { flex: 1; min-width: 200px; padding: 14px 16px; border-radius: 12px; border: 1px solid var(--border); background: var(--card-bg); color: var(--text); font-size: 15px; font-family: inherit; }
+  button { border: none; cursor: pointer; background: var(--accent); color: #fff; font-weight: 600; font-size: 15px; font-family: inherit; padding: 14px 22px; border-radius: 12px; }
+  .platforms { display: inline-flex; gap: 4px; padding: 4px; margin-bottom: 14px; border: 1px solid var(--border); border-radius: 12px; background: var(--card-bg); }
+  .platforms label { position: relative; padding: 8px 18px; border-radius: 9px; font-weight: 600; font-size: 14px; cursor: pointer; color: var(--text-secondary); }
+  .platforms input { position: absolute; opacity: 0; pointer-events: none; }
+  .platforms label:has(input:checked) { background: var(--accent-soft); color: var(--accent); }
+  .platforms label:has(input:focus-visible) { outline: 2px solid var(--accent); outline-offset: 2px; }
+  #waitlistMessage { margin-top: 14px; font-size: 14px; color: var(--accent); min-height: 20px; }
+  footer { border-top: 1px solid var(--border); padding: 28px 0 40px; font-size: 13px; color: var(--text-secondary); text-align: center; }
+  footer .links { display: flex; gap: 20px; justify-content: center; margin-bottom: 12px; }
+  footer p { margin: 6px auto; max-width: 620px; line-height: 1.5; }
+
+.top {display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap} .languages {display:flex;gap:16px;flex-wrap:wrap} .languages a[aria-current] {color:var(--accent);text-decoration-thickness:3px} button {color:#24181a} button:disabled {opacity:.65;cursor:wait} .faq {max-width:680px;margin:0 auto 64px} .faq h2 {font-size:32px;margin-bottom:24px} details {border-bottom:1px solid var(--border);padding:18px 0} summary {cursor:pointer;font-weight:600;line-height:1.5} details p {color:var(--text-secondary);line-height:1.65} a:focus-visible,button:focus-visible,input:focus-visible,summary:focus-visible {outline:2px solid var(--accent);outline-offset:4px} .privacy-note {font-size:13px;line-height:1.6} .error {color:#ff9b9b!important} .platforms {border:1px solid var(--border)} main {display:block} fieldset {min-width:0} .platforms legend {font-size:13px;color:var(--text-secondary);padding:0 8px} input[type=email] {max-width:100%;min-width:0;width:220px}
+/* Give the platform selector its own row and keep the address readable. */
+form .platforms { flex: 0 0 100%; justify-content: center; }
+input[type=email] { flex: 1 1 220px; min-width: 180px; width: auto; }
+@media(max-width:480px) { input[type=email], form button { flex-basis:100%; width:100%; } .languages {gap:12px;} }
